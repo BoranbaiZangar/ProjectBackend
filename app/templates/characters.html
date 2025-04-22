@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Персонажи вселенных: {{ project.title }}</h2>
+<a href="{{ url_for('character.add_character', project_id=project.id) }}" class="btn btn-primary">Добавить персонажа</a>
+<hr>
+
+{% for char in characters %}
+<div class="card my-2">
+    <div class="card-body">
+        <h5 class="card-title">{{ char.name }} ({{ char.age }} лет)</h5>
+        <p><strong>Пол:</strong> {{ char.gender }}</p>
+        <p><strong>Внешность:</strong> {{ char.appearance }}</p>
+        <p><strong>Характер:</strong> {{ char.personality }}</p>
+        <p><strong>История:</strong> {{ char.backstory }}</p>
+        <a href="{{ url_for('character.edit_character', char_id=char.id) }}" class="btn btn-sm btn-warning">Редактировать</a>
+        <a href="{{ url_for('character.delete_character', char_id=char.id) }}" class="btn btn-sm btn-danger">Удалить</a>
+    </div>
+</div>
+{% else %}
+<p>Нет персонажей.</p>
+{% endfor %}
+
+<a href="{{ url_for('projects.dashboard') }}" class="btn btn-secondary mt-4">Назад к другим мирам</a>
+{% endblock %}

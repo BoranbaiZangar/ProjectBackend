@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Редактировать персонажа: {{ character.name }}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" class="form-control mb-3" value="{{ character.name }}" required>
+    <input type="number" name="age" class="form-control mb-3" value="{{ character.age }}">
+    <input type="text" name="gender" class="form-control mb-3" value="{{ character.gender }}">
+    <textarea name="appearance" class="form-control mb-3">{{ character.appearance }}</textarea>
+    <textarea name="personality" class="form-control mb-3">{{ character.personality }}</textarea>
+    <textarea name="backstory" class="form-control mb-3">{{ character.backstory }}</textarea>
+
+    {% if character.image_filename %}
+    <p>Текущий аватар:</p>
+    <img src="{{ url_for('static', filename='uploads/' ~ character.image_filename) }}" class="img-thumbnail mb-3" width="150">
+    {% endif %}
+
+    <label for="image" class="form-label">Загрузить новый аватар (jpg/png):</label>
+    <input type="file" name="image" accept=".jpg,.jpeg,.png" class="form-control mb-3">
+
+    <button type="submit" class="btn btn-primary">Обновить</button>
+</form>
+
+<a href="{{ url_for('character.list_characters', project_id=character.project_id) }}" class="btn btn-secondary mt-3">Назад</a>
+{% endblock %}

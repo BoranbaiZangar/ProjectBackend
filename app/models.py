@@ -41,3 +41,5 @@ class Character(db.Model):
     backstory = db.Column(db.Text)
 
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    image_filename = db.Column(db.String(200))  # Новое поле для изображения
+

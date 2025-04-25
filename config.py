@@ -7,3 +7,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:748596@localhost:5432/persona_forge'
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MAX_CONTENT_LENGTH = 10 * 1024 * 1024

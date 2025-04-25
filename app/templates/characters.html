@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Персонажи вселенных: {{ project.title }}</h2>
-<a href="{{ url_for('character.add_character', project_id=project.id) }}" class="btn btn-primary">Добавить персонажа</a>
-<hr>
+<h2>Персонажи вселенной: {{ project.title }}</h2>
+<a href="{{ url_for('character.add_character', project_id=project.id) }}" class="btn btn-primary mb-3">Добавить персонажа</a>
 
 {% for char in characters %}
-<div class="card my-2">
+<div class="card mb-3 d-flex flex-row">
+    {% if char.image_filename %}
+    <img src="{{ url_for('static', filename='uploads/' ~ char.image_filename) }}"
+         class="img-thumbnail" style="width: 150px; height: auto;" alt="{{ char.name }}">
+    {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{ char.name }} ({{ char.age }} лет)</h5>
         <p><strong>Пол:</strong> {{ char.gender }}</p>
@@ -17,7 +20,7 @@
     </div>
 </div>
 {% else %}
-<p>Нет персонажей.</p>
+<p>Нет персонажей в этой вселенной.</p>
 {% endfor %}
 
 <a href="{{ url_for('projects.dashboard') }}" class="btn btn-secondary mt-4">Назад к другим мирам</a>

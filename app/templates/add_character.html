@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Добавить персонажа</h2>
-<form method="POST">
-    <input type="text" name="name" class="form-control" placeholder="Имя" required><br>
-    <input type="number" name="age" class="form-control" placeholder="Возраст"><br>
-    <input type="text" name="gender" class="form-control" placeholder="Пол"><br>
-    <textarea name="appearance" class="form-control" placeholder="Внешность"></textarea><br>
-    <textarea name="personality" class="form-control" placeholder="Характер"></textarea><br>
-    <textarea name="backstory" class="form-control" placeholder="История"></textarea><br>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" class="form-control mb-3" placeholder="Имя" required>
+    <input type="number" name="age" class="form-control mb-3" placeholder="Возраст">
+    <input type="text" name="gender" class="form-control mb-3" placeholder="Пол">
+    <textarea name="appearance" class="form-control mb-3" placeholder="Внешность"></textarea>
+    <textarea name="personality" class="form-control mb-3" placeholder="Характер"></textarea>
+    <textarea name="backstory" class="form-control mb-3" placeholder="История"></textarea>
+
+    <label for="image" class="form-label">Аватар персонажа (jpg/png):</label>
+    <input type="file" name="image" accept=".jpg,.jpeg,.png" class="form-control mb-3">
+
     <button type="submit" class="btn btn-success">Сохранить</button>
 </form>
+
 <a href="{{ url_for('character.list_characters', project_id=project_id) }}" class="btn btn-secondary mt-3">Назад</a>
 {% endblock %}

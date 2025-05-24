@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back2.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+
+{% block content %}
+<style>
+    .character-detail-card {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        color: white;
+        margin-top: 40px;
+    }
+
+    .character-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .character-image {
+        width: 300px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .character-name {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .badge-info {
+        background-color: #1565c0;
+        border-radius: 30px;
+        padding: 8px 20px;
+        margin: 5px;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .character-section {
+        margin-top: 30px;
+    }
+
+    .character-section h4 {
+        font-weight: 600;
+        border-bottom: 2px solid #ffffff33;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .character-section p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="container">
+    <div class="character-detail-card">
+
+        <!-- Character Header -->
+        <div class="character-header text-center">
+            {% if character.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/' ~ character.image_filename) }}"
+                     alt="{{ character.name }}" class="character-image">
+            {% else %}
+                <i class="fas fa-user-circle fa-6x text-secondary mb-3"></i>
+            {% endif %}
+
+            <div class="character-name">{{ character.name }}</div>
+            <span class="badge-info">{{ character.age }} years old</span>
+            <span class="badge-info">Universe: {{ character.universe.name }}</span>
+        </div>
+
+        <!-- Sections -->
+        <div class="row mt-4">
+            <div class="col-md-4 character-section">
+                <h4>Appearance</h4>
+                <p>{{ character.appearance }}</p>
+            </div>
+            <div class="col-md-4 character-section">
+                <h4>Personality</h4>
+                <p>{{ character.personality }}</p>
+            </div>
+            <div class="col-md-4 character-section">
+                <h4>Backstory</h4>
+                <p>{{ character.backstory }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

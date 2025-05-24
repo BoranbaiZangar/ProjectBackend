@@ -97,9 +97,68 @@
         text-align: center;
         color: #6c757d;
     }
+
+    /* Search form styling */
+    .search-form {
+        margin-bottom: 2rem;
+    }
+
+    .search-form input {
+        border-radius: 10px;
+        padding: 10px 15px;
+        border: 2px solid #e9ecef;
+        width: 300px;
+        max-width: 100%;
+    }
+
+    .search-form button {
+        border-radius: 10px;
+        padding: 10px 20px;
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        margin-left: 10px;
+        transition: all 0.2s ease;
+    }
+
+    .search-form button:hover {
+        background-color: #1565c0;
+        transform: translateY(-2px);
+    }
+
+    /* Filter form styling */
+    .filter-form {
+        margin-bottom: 2rem;
+    }
+
+    .filter-form select {
+        border-radius: 10px;
+        padding: 10px 15px;
+        border: 2px solid #e9ecef;
+        width: 200px;
+        max-width: 100%;
+    }
 </style>
 
 <div class="container py-5">
+    <!-- Search Form -->
+    <form class="search-form" method="POST" action="{{ url_for('characters.search_characters') }}">
+        <input type="text" name="search_query" placeholder="Search by character name" value="{{ search_query or '' }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Filter by Universe -->
+    <form class="filter-form" method="GET" action="{{ url_for('characters.filter_by_universe') }}">
+        <select name="universe_id" onchange="this.form.submit()">
+            <option value="">All Universes</option>
+            {% for universe in universes %}
+                <option value="{{ universe.id }}" {% if selected_universe and selected_universe.id == universe.id %}selected{% endif %}>
+                    {{ universe.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
     <div class="d-flex justify-content-between align-items-center mb-5">
         <img src="{{ url_for('static', filename='elements/my-char.svg') }}" alt="text" height="70">
         <a href="{{ url_for('characters.create_character') }}" class="btn-create">
@@ -132,6 +191,11 @@
                             </span>
                         </div>
                         <div class="d-flex">
+                            <!-- View button -->
+                            <a href="{{ url_for('characters.view_character', char_id=character.id) }}"
+                               class="btn btn-info btn-action">
+                                View
+                            </a>
                             <!-- Edit button -->
                             <a href="{{ url_for('characters.edit_character', char_id=character.id) }}"
                                class="btn btn-primary btn-action">
